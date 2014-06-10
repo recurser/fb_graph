@@ -12,16 +12,16 @@ module FbGraph
   ROOT_URL = 'https://graph.facebook.com'
 
   def self.v1!
-    @v2 = false
+    ::Thread.current[:fb_graph_v2] = false
   end
   def self.v2!
-    @v2 = true
+    ::Thread.current[:fb_graph_v2] = true
   end
   def self.v1?
     !v2?
   end
   def self.v2?
-    !!@v2
+    !!::Thread.current[:fb_graph_v2]
   end
   def self.root_url
     if self.v2?
